@@ -1,0 +1,2 @@
+# burmeseOCR
+OCR for Burmese
