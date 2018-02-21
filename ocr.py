@@ -18,10 +18,12 @@ args = vars(ap.parse_args())
 image = cv2.imread(args["image"])
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-# apply preprocessing for thresholding to image
+# check to see if we should apply thresholding to preprocess the
+# image
 gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
-# apply preprocessing for noise
+# make a check to see if median blurring should be done to remove
+# noise
 gray = cv2.medianBlur(gray, 3)
 
 # write the grayscale image to disk as a temporary file so we can
@@ -33,7 +35,7 @@ cv2.imwrite(filename, gray)
 # the temporary file
 image = Image.open(filename)
 #text = tesserocr.image_to_text(image)  # print ocr text from image
-text = pytesseract.image_to_string(Image.open(filename), 'mya')
+text = pytesseract.image_to_string(Image.open(filename), 'mya+eng')
 os.remove(filename)
 
 #print out the text on the command line and writes it to the file called Output.txt
